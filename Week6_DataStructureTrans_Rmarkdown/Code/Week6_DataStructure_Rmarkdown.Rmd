@@ -1,0 +1,97 @@
+---
+title: "Week6_DataStructureTransform_Pirates"
+author: "Anjali Rawat"
+date: "February 16, 2019"
+output: html_document
+---
+
+library(Rmarkdown)
+
+# Q1. Combine the data into a single dataframe. Complete all the following exercises from the dataframe
+```{r}
+pirates=data.frame(Name=c("Astrid","Lea","Sarina","Remon","Letizia","Babice","Jonas","Wendy","Niveditha","Gioia"), Sex=c("F","F","F","M","F","F","M","F","F","F"),"Age"=c(30,25,25,29,22,22,35,19,32,21),Superhero=c("Batman","Superman","Batman","Spiderman","Batman","Antman","Batman","Superman","Maggott","Superman"),"Tattoos"=c(11,15,12,5,65,3,9,13,900,0))
+View(pirates)
+```
+
+#Q2. What is the median age of the 10 pirates?
+```{r}
+median(pirates$Age)
+```
+
+# Q3.What was the mean age of female and male pirates separately?
+```{r}
+subset(pirates,Sex=="F")
+        
+piratesfemale=subset(pirates,Sex=="F")
+
+MeanAgepiratesfemale=mean(piratesfemale$Age)
+
+MeanAgepiratesfemale
+
+piratesmale=subset(pirates,Sex=="M")
+piratesmale
+
+MeanAgepiratesmale=mean(piratesmale$Age)
+MeanAgepiratesmale
+```
+#Q4. What was the most number of tattoos owned by a male pirate?
+```{r}
+MaxTattoospiratesales=max(piratesmale$Tattoos)
+MaxTattoospiratesales
+```
+#Q5. What percent of pirates under the age of 32 were female?
+```{r}
+piratesunder32=subset(pirates,Age<32)
+piratesunder32
+
+femalepiratesunder32=subset(piratesunder32,Sex=="F")
+femalepiratesunder32
+
+percentpiratesunder32female=length(femalepiratesunder32$Sex)/length(piratesunder32$Sex)
+percentpiratesunder32female
+```
+
+#Q6What percent of female pirates are under the age of 32?
+```{r}
+piratesfemale=subset(pirates,Sex=="F")
+piratesfemale
+piratesfemaleunder32=subset(piratesfemale,Age<32)
+piratesfemaleunder32
+length(piratesfemale$Sex)
+length(piratesfemaleunder32$Sex)
+percentpiratesfemaleunder32=length(piratesfemaleunder32$Sex)/length(piratesfemale$Sex)
+percentpiratesfemaleunder32
+```
+
+#Q7Add a new column to the dataframe called tattoos.per.year which shows how many tattoos each pirate has for each year in their life.
+```{r}
+pirates$tattoos.per.year=pirates$Tattoos/pirates$Age
+
+#Or using "with'
+
+pirates$tattoos.per.year=with(Tattoos/Age,data=pirates)
+pirates$tattoos.per.year
+```
+
+
+#Q8 Which pirate had the most number of tattoos per year?
+```{r}
+subset(pirates,pirates$tattoos.per.year==max((pirates$tattoos.per.year)))
+```
+
+#Q9What are the names of the female pirates whose favorite superhero is Superman?
+```{r}
+subset(pirates,pirates$Superhero=="Superman"& pirates$Sex=="F")
+```
+
+
+#Q10What was the median number of tattoos of pirates over the age of 20 whose favorite superhero is Spiderman?
+
+```{r}
+piratesover20=subset(pirates,pirates$Age>20)
+piratesover20
+        
+piratesover20spiderman=subset(piratesover20,piratesover20$Superhero=="Spiderman")
+piratesover20spiderman
+``` 
+
