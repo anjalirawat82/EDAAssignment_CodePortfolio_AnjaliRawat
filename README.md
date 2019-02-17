@@ -1,7 +1,7 @@
 # EDAAssignment_CodePortfolio_AnjaliRawat
 Hi, this is Anjali Rawat. This repository is pary of my ANLY 506 class assignments. The repository essentially consists of two assignments
 1) R-code portfolio building from different class exercises 
-2) Exploratory Data Analysis Assignment for Bikedata
+2) Exploratory Data Analysis Assignment for Bikedata (This part of the assignment will be submitted separately later) 
 
 # Content Structure and discription
 
