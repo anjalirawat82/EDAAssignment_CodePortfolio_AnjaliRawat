@@ -5,6 +5,12 @@ Hi, this is Anjali Rawat. This repository is pary of my ANLY 506 class assignmen
 
 # Content Structure and discription
 
+Week12_Clustering
+
+   Code 
+   
+          Clustering data.Rmd: Containes "R markdowm" code for various clustering from Chapter 12/Peng 2010
+          
 Week5_DataImport
 
    Code 
@@ -16,21 +22,31 @@ Week6_DataStructreTrans_Rmarkdown
 
    Code 
    
-          Week6_DataStructure_Rmarkdowm.Rmd: Contains "R markdown" code for solving exercise from YaRrr Chapter 8 - Matrices and Dataframe
+          Week6_DataStructure_Rmarkdowm.Rmd: Contains "R markdown" code for solving exercise from Chapter 8/YaRrr
           
           Week6_DataStructure_Rmarkdowm.html: Contains html outpit of the "R markdown" code above
           
           Week6_DataStructure_Rmarkdowm.pdf: Contains pdf outpit of the "R markdown" code above
           
-Week7_Data Transformation 
+          
+Week7_Data Transformation
+
    Code
+   
           DataTransformation.R: Containes "R script" code for various data Transformation scripts from Chapter 5/YaRrr
           
+          
 Week9_ExplGraphsDataDistandVisual
+
    Code
-          ExploratoryGraphs.R: Containes "R script" code for various plotting function examples from Chapter 7/YaRrr - Exploratory data analysis
-   Data
-          US EPA data 2017.csv - 
-   Figures
    
+          ExploratoryGraphs.R: Containes "R script" code for various plotting function examples from Chapter 7/YaRrr
+          
+   Data
+   
+          US EPA data 2017.csv - Ozone concentration over United states
+          
+   Figures 
+   
+         Contains various Ozone concentration plots as per various exercises 
     
