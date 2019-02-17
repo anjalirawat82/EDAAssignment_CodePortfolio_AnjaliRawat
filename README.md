@@ -5,7 +5,7 @@ Hi, this is Anjali Rawat. This repository is pary of my ANLY 506 class assignmen
 
 # Content Structure and discription
 
-   #Week12_Clustering/Code 
+   # Week12_Clustering/Code 
    
           Clustering data.Rmd: Containes "R markdowm" code for various clustering from Chapter 12/Peng 2010
           
