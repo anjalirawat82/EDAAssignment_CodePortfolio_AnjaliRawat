@@ -10,7 +10,9 @@ Week12_Clustering
    Code 
    
           Clustering data.Rmd: Containes "R markdowm" code for various clustering from Chapter 12/Peng 2010
+          
           Clustering data.html: Containes "html" file output from the R markdown code above
+          
           Week12_Data Clustering.pdf: Containes "pdf" file output from the R markdown code above
           
 Week5_DataImport
