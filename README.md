@@ -4,9 +4,13 @@ Hi, this is Anjali Rawat. This repository is pary of my ANLY 506 class assignmen
 2) Exploratory Data Analysis Assignment for Bikedata
 
 # Content Structure and discription
+
 Week5_DataImport
+
    Code 
+   
           DataImport.R: Containes "R script" code for various data importing scripts from Chapter 11/YaRrr
+          
           
 Week6_DataStructreTrans_Rmarkdown
 
