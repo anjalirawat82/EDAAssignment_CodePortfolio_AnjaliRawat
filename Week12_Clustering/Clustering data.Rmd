@@ -1,0 +1,57 @@
+---
+title: "Week12_Data Clustering"
+output: html_document
+---
+
+## Call useful libraries
+```{r}
+library(tidyverse)  # data manipulation
+library(cluster)    # clustering algorithms
+library(factoextra)  # clustering algorithms & visualization{r} 
+library(gridExtra)
+```
+
+```{r}
+df <- USArrests # read USArrests data 
+df <- na.omit(df) #Remove any missing values
+df <- scale(df)
+head(df)
+```
+
+```{r}
+distance <- get_dist(df)  # distance matrix between the rows of a data matrix
+fviz_dist(distance, gradient = list(low = "#00AFBB", mid = "white", high = "#FC4E07")) # It performs principle component analysis and Visualization of distance matrix
+```
+
+## Kemans clustering
+```{r}
+k2 <- kmeans(df, centers = 2, nstart = 25)
+str(k2) 
+fviz_cluster(k2, data = df)
+```
+
+## Pairwise scatter plot
+
+```{r}
+df %>%
+  as_tibble() %>%
+  mutate(cluster = k2$cluster,
+         state = row.names(USArrests)) %>%
+  ggplot(aes(UrbanPop, Murder, color = factor(cluster), label = state)) +
+  geom_text()
+```
+
+## Comparision plots
+
+
+```{r}
+k3 <- kmeans(df, centers = 3, nstart = 25)
+k4 <- kmeans(df, centers = 4, nstart = 25)
+k5 <- kmeans(df, centers = 5, nstart = 25)
+p1 <- fviz_cluster(k2, geom = "point", data = df) + ggtitle("k = 2")
+p2 <- fviz_cluster(k3, geom = "point",  data = df) + ggtitle("k = 3")
+p3 <- fviz_cluster(k4, geom = "point",  data = df) + ggtitle("k = 4")
+p4 <- fviz_cluster(k5, geom = "point",  data = df) + ggtitle("k = 5")
+grid.arrange(p1, p2, p3, p4, nrow = 2)
+```
+
