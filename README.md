@@ -9,9 +9,13 @@ Week5_DataImport
           DataImport.R: Containes "R script" code for various data importing scripts from Chapter 11/YaRrr
           
 Week6_DataStructreTrans_Rmarkdown
+
    Code 
+   
           Week6_DataStructure_Rmarkdowm.Rmd: Contains "R markdown" code for solving exercise from YaRrr Chapter 8 - Matrices and Dataframe
+          
           Week6_DataStructure_Rmarkdowm.html: Contains html outpit of the "R markdown" code above
+          
           Week6_DataStructure_Rmarkdowm.pdf: Contains pdf outpit of the "R markdown" code above
           
 Week7_Data Transformation 
