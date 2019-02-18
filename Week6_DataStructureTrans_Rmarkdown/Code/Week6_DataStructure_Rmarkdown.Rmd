@@ -2,7 +2,9 @@
 title: "Week6_DataStructureTransform_Pirates"
 author: "Anjali Rawat"
 date: "February 16, 2019"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 library(Rmarkdown)
