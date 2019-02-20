@@ -2,7 +2,9 @@
 title: "Exploratory Data Analysis Project- Gapminder Dataset"
 author: "Anjali Rawat"
 date: "February 18, 2019"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ## EDA Assignment Summary
@@ -20,11 +22,13 @@ I first present a systematic data description which includes description of each
 
 ## 1. Questions
 
-Q1) Analyze trends in Life Expectancy (i.e. life) with Per Capita Income (i.e. Income) for the entire dataset.
+Q1) What are the descriptive statistics of Life, Income and Population for six Regions
 
-Q2) Analyse trends in Life Expectancy (i.e. life) over the years for different subcontinents (i.e. regions).
+Q2) What is the trend in Life Expectancy (i.e. life) with Per Capita Income (i.e. Income) for the entire dataset.
 
-Q3) Repeat Q1 and Q2 analysis for United Staes.
+Q3) What is the trend in Life Expectancy (i.e. life),Population and Income over the years for different regions
+
+Q4) Repeat Q2 and Q3 analysis for United Staes.
 
 ## 2. Data description
 
@@ -104,22 +108,22 @@ fivenum(SubSaharanAfrica$population)
 fivenum(SubSaharanAfrica$income)
 ```
 
-## 3.1.2. Raw Data Visulization
+## 3.1.2. Raw Data Visualization
 
 # a) Boxplots
 
-Life expectancy comparision in different region (subcontenets)
+Life expectancy comparision in different region
 ```{r, echo=TRUE}
 library(ggplot2)
 ggplot(gapminder, aes(x = region, y = life)) +  geom_boxplot(outlier.colour = "red") +  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
 ```
 
-Population comparision in different region (subcontenets)
+Population comparision in different region 
 ```{r, echo=TRUE}
 ggplot(gapminder, aes(x = region, y = population)) +  geom_boxplot(outlier.colour = "red") +  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
 ```
 
-Income comparision in different region (subcontenets) 
+Income comparision in different region  
 ```{r, echo=TRUE}
 ggplot(gapminder, aes(x = region, y = income)) +  geom_boxplot(outlier.colour = "red") +  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
 ```
@@ -180,7 +184,7 @@ fivenum(gapminderUS$population)
 fivenum(gapminderUS$income)
 ```
 
-# Raw data visulization
+# Raw data visualization
 
 # a) Boxplots for different variables for the US
 ```{r, echo=TRUE}

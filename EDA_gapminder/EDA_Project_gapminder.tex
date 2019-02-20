@@ -1,0 +1,819 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Exploratory Data Analysis Project- Gapminder Dataset},
+            pdfauthor={Anjali Rawat},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Exploratory Data Analysis Project- Gapminder Dataset}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Anjali Rawat}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{February 18, 2019}
+
+
+\begin{document}
+\maketitle
+
+\subsection{EDA Assignment Summary}\label{eda-assignment-summary}
+
+In this exploratory data analysis assignment I have used the Gapminder
+Dataset for analysis. After starting with a brief data inspection and
+exploratory plotting, I set up three specific questions, shown in
+section 1 below, for my analysis in this project. Thre reset of the
+presentation and anlysis of the project is as follows.
+
+I first present a systematic data description which includes description
+of each variables, total number of records and missing values etc. In
+Data exploration section I have first presented regionwise
+(subcontinents) discriptive statistics and visulization (boxplots,
+histograms, and density plots for different) of the different variables
+present in the data. The analysis results/interpretations are shown
+below.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  The analysis of the Life Expectancy vs Per Capita Income plot did not
+  show any conclusive trend, however, plotting percapita income on log
+  scale shows a nearly linear trend with life expectancy with quite a
+  bit of spread. This is ecpected that increase in percapita income will
+  increase life expectancy.
+\item
+  The life expectancy trends over the years show a very low and flat
+  expectancy until early parts of the 20th century in all the continents
+  (may be because of lack of health care) and then shown increasing
+  treands in all continents. The increasing trends are set early in high
+  percapita regions, like, US and Europe, and late in poorer regions
+  like middle east/north africa and Asia pacific. There trends are
+  obvious and are in line with the expectations.
+\item
+  Similar analysis for United States shows a clearer tresnd for life
+  expectancy whrere above certain level (\textasciitilde{}\$8000) it
+  increases sharply and the slows down beyond certain limit as income
+  cann't control life beyond certain limit.Similarly, life expectancy in
+  US started increasing very early (before 1900) and is showing a
+  contineous increase over time probably due to improvement in health
+  care, which is also strongly related to income as well.
+\end{enumerate}
+
+\subsection{1. Questions}\label{questions}
+
+Q1) What are the descriptive statistics of Life, Income and Population
+for six Regions
+
+Q2) What is the trend in Life Expectancy (i.e.~life) with Per Capita
+Income (i.e.~Income) for the entire dataset.
+
+Q3) What is the trend in Life Expectancy (i.e.~life),Population and
+Income over the years for different regions
+
+Q4) Repeat Q2 and Q3 analysis for United Staes.
+
+\subsection{2. Data description}\label{data-description}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(readr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'readr' was built under R version 3.5.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"C:/Harrisburg University of Science and Technology/Anly 506-90- O-2018Late Fall - Exploratory Data Analytics/EDA Assignment +Code Portfolio/EDAAssignment_CodePortfolio_AnjaliRawat/gapminder.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   Country = col_character(),
+##   Year = col_double(),
+##   life = col_double(),
+##   population = col_number(),
+##   income = col_double(),
+##   region = col_character()
+## )
+\end{verbatim}
+
+The gapminder dataset is a comma-separated value (.CSV) file with 41284
+records.The data frame has six features/variables
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi})}
+\item
+  Country (a categorical variable), a factor with 197 levels
+\item
+  region (a categorical variable), a factor with 6 levels represent
+  different subcontinental regions in the world
+\item
+\begin{verbatim}
+Year (a categorical variable), a factor with 216 levels
+\end{verbatim}
+\item
+  life (a continuous variable)- denote Life Expectancy
+\item
+  population(a discrete variable)
+\item
+  income (a continuous variable)- represents Per Capita Income
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nrow}\NormalTok{(gapminder)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 41284
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ncol}\NormalTok{(gapminder)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(gapminder)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Classes 'spec_tbl_df', 'tbl_df', 'tbl' and 'data.frame': 41284 obs. of  6 variables:
+##  $ Country   : chr  "Afghanistan" "Afghanistan" "Afghanistan" "Afghanistan" ...
+##  $ Year      : num  1800 1801 1802 1803 1804 ...
+##  $ life      : num  28.2 28.2 28.2 28.2 28.2 ...
+##  $ population: num  3280000 NA NA NA NA NA NA NA NA NA ...
+##  $ income    : num  603 603 603 603 603 603 603 603 603 603 ...
+##  $ region    : chr  "South Asia" "South Asia" "South Asia" "South Asia" ...
+##  - attr(*, "spec")=
+##   .. cols(
+##   ..   Country = col_character(),
+##   ..   Year = col_double(),
+##   ..   life = col_double(),
+##   ..   population = col_number(),
+##   ..   income = col_double(),
+##   ..   region = col_character()
+##   .. )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(gapminder)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 6
+##   Country      Year  life population income region    
+##   <chr>       <dbl> <dbl>      <dbl>  <dbl> <chr>     
+## 1 Afghanistan  1800  28.2    3280000    603 South Asia
+## 2 Afghanistan  1801  28.2         NA    603 South Asia
+## 3 Afghanistan  1802  28.2         NA    603 South Asia
+## 4 Afghanistan  1803  28.2         NA    603 South Asia
+## 5 Afghanistan  1804  28.2         NA    603 South Asia
+## 6 Afghanistan  1805  28.2         NA    603 South Asia
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(gapminder)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 6
+##   Country  Year  life population income region               
+##   <chr>   <dbl> <dbl>      <dbl>  <dbl> <chr>                
+## 1 Åland    1992  80.8      24834     NA Europe & Central Asia
+## 2 Åland    1993  81.8      24950     NA Europe & Central Asia
+## 3 Åland    1994  80.6      25066     NA Europe & Central Asia
+## 4 Åland    1995  79.9      25183     NA Europe & Central Asia
+## 5 Åland    1996  80        25301     NA Europe & Central Asia
+## 6 Åland    1997  80.1      25419     NA Europe & Central Asia
+\end{verbatim}
+
+\subsection{3 Data exploration}\label{data-exploration}
+
+\subsection{3.1 Exploratory regional data
+analysis}\label{exploratory-regional-data-analysis}
+
+\subsection{3.1.1 Data summary
+statistics}\label{data-summary-statistics}
+
+\section{a) Mean and Median of life expectancy Region
+wise}\label{a-mean-and-median-of-life-expectancy-region-wise}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{aggregate}\NormalTok{(life }\OperatorTok{~}\StringTok{ }\NormalTok{region, gapminder, median)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                       region     life
+## 1                    America 35.37370
+## 2        East Asia & Pacific 34.00000
+## 3      Europe & Central Asia 41.74110
+## 4 Middle East & North Africa 32.30000
+## 5                 South Asia 32.64700
+## 6         Sub-Saharan Africa 32.40338
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{aggregate}\NormalTok{(life }\OperatorTok{~}\StringTok{ }\NormalTok{region, gapminder, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                       region     life
+## 1                    America 44.54065
+## 2        East Asia & Pacific 41.76041
+## 3      Europe & Central Asia 48.79419
+## 4 Middle East & North Africa 41.55366
+## 5                 South Asia 37.42302
+## 6         Sub-Saharan Africa 37.88242
+\end{verbatim}
+
+\section{b) Five Num Summary Life Expectancy Region
+wise}\label{b-five-num-summary-life-expectancy-region-wise}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SouthAsia=}\KeywordTok{filter}\NormalTok{(gapminder, region}\OperatorTok{==}\StringTok{"South Asia"}\NormalTok{)}
+\KeywordTok{fivenum}\NormalTok{(SouthAsia}\OperatorTok{$}\NormalTok{life)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  7.045063 27.345157 32.647000 44.374110 79.500000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(SouthAsia}\OperatorTok{$}\NormalTok{population)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]      42378     993915   15661841   69328216 1311050527
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(SouthAsia}\OperatorTok{$}\NormalTok{income)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   603.0   840.0  1020.0  1286.5 14408.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{EastAsiaPacific =}\StringTok{ }\KeywordTok{filter}\NormalTok{(gapminder,region}\OperatorTok{==}\StringTok{"East Asia & Pacific"}\NormalTok{)}
+\KeywordTok{fivenum}\NormalTok{(EastAsiaPacific}\OperatorTok{$}\NormalTok{life)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1.00000 28.94900 34.00000 57.49076 83.50000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(EastAsiaPacific}\OperatorTok{$}\NormalTok{population)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]       1548     115956    1241248   18196783 1376048943
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(EastAsiaPacific}\OperatorTok{$}\NormalTok{income)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]    363.0    873.0   1153.5   2557.5 134864.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{EuropeCentralAsia=}\KeywordTok{filter}\NormalTok{(gapminder,region}\OperatorTok{==}\StringTok{"Europe & Central Asia"}\NormalTok{)}
+\KeywordTok{fivenum}\NormalTok{(EuropeCentralAsia}\OperatorTok{$}\NormalTok{life)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  3.98908 35.60000 41.74110 66.60000 84.10000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(EuropeCentralAsia}\OperatorTok{$}\NormalTok{population)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]      9584   1960597   4750396  10592125 148435811
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(EuropeCentralAsia}\OperatorTok{$}\NormalTok{income)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   393  1427  2735  7387 96245
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{MiddleEastNorthAfrica =}\StringTok{ }\KeywordTok{filter}\NormalTok{(gapminder,region}\OperatorTok{==}\StringTok{"Middle East & North Africa"}\NormalTok{)}
+\KeywordTok{fivenum}\NormalTok{(MiddleEastNorthAfrica}\OperatorTok{$}\NormalTok{life)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1.50000 30.71320 32.30000 53.70766 82.40000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(MiddleEastNorthAfrica}\OperatorTok{$}\NormalTok{population)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]     2788   548618  2615753  9499387 91508084
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(MiddleEastNorthAfrica}\OperatorTok{$}\NormalTok{income)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]    715.0   1082.0   1537.5   3939.0 182668.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{America =}\KeywordTok{filter}\NormalTok{(gapminder,region}\OperatorTok{==}\StringTok{"America"}\NormalTok{)}
+\KeywordTok{fivenum}\NormalTok{(America}\OperatorTok{$}\NormalTok{life)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  9.690052 32.124000 35.373700 61.048460 81.700000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(America}\OperatorTok{$}\NormalTok{population)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]      9899.0    236909.5   2144973.0   8510081.5 321773631.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(America}\OperatorTok{$}\NormalTok{income)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   529.0  1277.5  2214.5  5461.5 53354.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{SubSaharanAfrica =}\StringTok{ }\KeywordTok{filter}\NormalTok{(gapminder,region}\OperatorTok{==}\StringTok{"Sub-Saharan Africa"}\NormalTok{)}
+\KeywordTok{fivenum}\NormalTok{(SubSaharanAfrica}\OperatorTok{$}\NormalTok{life)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  4.00000 30.43680 32.40338 46.00000 79.64600
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(SubSaharanAfrica}\OperatorTok{$}\NormalTok{population)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]      8219    821457   3019768   8719290 182201962
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(SubSaharanAfrica}\OperatorTok{$}\NormalTok{income)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   142   596   827  1323 40143
+\end{verbatim}
+
+\subsection{3.1.2. Raw Data Visualization}\label{raw-data-visualization}
+
+\section{a) Boxplots}\label{a-boxplots}
+
+Life expectancy comparision in different region
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'ggplot2' was built under R version 3.5.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(gapminder, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ region, }\DataTypeTok{y =}\NormalTok{ life)) }\OperatorTok{+}\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{outlier.colour =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.1}\NormalTok{, }\DataTypeTok{height =} \DecValTok{0}\NormalTok{), }\DataTypeTok{alpha =} \DecValTok{1}\OperatorTok{/}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+Population comparision in different region
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(gapminder, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ region, }\DataTypeTok{y =}\NormalTok{ population)) }\OperatorTok{+}\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{outlier.colour =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.1}\NormalTok{, }\DataTypeTok{height =} \DecValTok{0}\NormalTok{), }\DataTypeTok{alpha =} \DecValTok{1}\OperatorTok{/}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 25817 rows containing non-finite values (stat_boxplot).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 25817 rows containing missing values (geom_point).
+\end{verbatim}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+Income comparision in different region
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(gapminder, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ region, }\DataTypeTok{y =}\NormalTok{ income)) }\OperatorTok{+}\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{outlier.colour =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{position =} \KeywordTok{position_jitter}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.1}\NormalTok{, }\DataTypeTok{height =} \DecValTok{0}\NormalTok{), }\DataTypeTok{alpha =} \DecValTok{1}\OperatorTok{/}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 2341 rows containing non-finite values (stat_boxplot).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 2341 rows containing missing values (geom_point).
+\end{verbatim}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\section{b) Histograms}\label{b-histograms}
+
+Life Expectancy by region
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(America}\OperatorTok{$}\NormalTok{life)}
+\KeywordTok{hist}\NormalTok{(EastAsiaPacific}\OperatorTok{$}\NormalTok{life)}
+\KeywordTok{hist}\NormalTok{(EuropeCentralAsia}\OperatorTok{$}\NormalTok{life)}
+\KeywordTok{hist}\NormalTok{(MiddleEastNorthAfrica}\OperatorTok{$}\NormalTok{life)}
+\KeywordTok{hist}\NormalTok{(SouthAsia}\OperatorTok{$}\NormalTok{life)}
+\KeywordTok{hist}\NormalTok{(SubSaharanAfrica}\OperatorTok{$}\NormalTok{life)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\section{c) Density plots}\label{c-density-plots}
+
+Density Plot of life expectancy by region
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(gapminder,}\KeywordTok{aes}\NormalTok{(life))}\OperatorTok{+}\KeywordTok{geom_density}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{region))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\subsection{3.1.3. Analysis of Life Expectancy vs Per capita income for
+different
+subcontinents}\label{analysis-of-life-expectancy-vs-per-capita-income-for-different-subcontinents}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(gapminder}\OperatorTok{$}\NormalTok{income, gapminder}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"Life Expectancy vs Per Capita Income"}\NormalTok{ )}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{log}\NormalTok{(gapminder}\OperatorTok{$}\NormalTok{income), gapminder}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"Life Expectancy vs log(Per Capita Income)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\subsection{3.1.4 Life expectancy trends over the years for different
+regions/subcontinents}\label{life-expectancy-trends-over-the-years-for-different-regionssubcontinents}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(SouthAsia}\OperatorTok{$}\NormalTok{Year, SouthAsia}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"SouthAsia"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(EastAsiaPacific}\OperatorTok{$}\NormalTok{Year, EastAsiaPacific}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"Asia Pacific"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(EuropeCentralAsia}\OperatorTok{$}\NormalTok{Year, EuropeCentralAsia}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"Europe and Central Asia"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(MiddleEastNorthAfrica}\OperatorTok{$}\NormalTok{Year, MiddleEastNorthAfrica}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"Middle East and North Africa"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(America}\OperatorTok{$}\NormalTok{Year, America}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"America"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(SubSaharanAfrica}\OperatorTok{$}\NormalTok{Year, SubSaharanAfrica}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"SubSahara and Africa"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\section{3.2 Exploratory data analysis for a single country (United
+States)}\label{exploratory-data-analysis-for-a-single-country-united-states}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminderUS=}\KeywordTok{filter}\NormalTok{(gapminder,Country}\OperatorTok{==}\StringTok{"United States"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Data summary and statistics}\label{data-summary-and-statistics}
+
+Five-number summaries for different variables for the US
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{life)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 31.000 39.410 50.550 69.938 79.100
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{population)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   6801854 170796378 218963561 266275528 321773631
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fivenum}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{income)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  2115.0  3505.0  7875.0 19231.5 53354.0
+\end{verbatim}
+
+\section{Raw data visualization}\label{raw-data-visualization-1}
+
+\section{a) Boxplots for different variables for the
+US}\label{a-boxplots-for-different-variables-for-the-us}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\KeywordTok{boxplot}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"Life expectancy"}\NormalTok{)}
+\KeywordTok{boxplot}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{population, }\DataTypeTok{main =} \StringTok{"Population"}\NormalTok{)}
+\KeywordTok{boxplot}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{income, }\DataTypeTok{main =} \StringTok{"Income"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\section{b) Histograms for different variable for the
+US}\label{b-histograms-for-different-variable-for-the-us}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\KeywordTok{hist}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{life,}\DataTypeTok{col =} \StringTok{"green"}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{population,}\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{income,}\DataTypeTok{col=}\StringTok{"magenta"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\section{c) Density Plots for different variables for the
+US}\label{c-density-plots-for-different-variables-for-the-us}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{density}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{life))}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{density}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{income))     }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\subsection{\texorpdfstring{3.2.3. Analysis of `Life Expectancy' vs `Per
+Capita Income' for the United
+States}{3.2.3. Analysis of Life Expectancy vs Per Capita Income for the United States}}\label{analysis-of-life-expectancy-vs-per-capita-income-for-the-united-states}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{income, gapminderUS}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"Life expectancy vs Income"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{log}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{income), gapminderUS}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"Life expectancy vs Income"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\subsection{\texorpdfstring{3.2.3. Analysis of `Life Expectancy',
+`Population' and `Per Capita Income' variation over the years for the
+United
+States}{3.2.3. Analysis of Life Expectancy, Population and Per Capita Income variation over the years for the United States}}\label{analysis-of-life-expectancy-population-and-per-capita-income-variation-over-the-years-for-the-united-states}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{Year, gapminderUS}\OperatorTok{$}\NormalTok{life, }\DataTypeTok{main =} \StringTok{"Life expectancy vs Year"}\NormalTok{)     }
+\KeywordTok{plot}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{Year, gapminderUS}\OperatorTok{$}\NormalTok{population, }\DataTypeTok{main =} \StringTok{"Population vs Year"}\NormalTok{)     }
+\KeywordTok{plot}\NormalTok{(gapminderUS}\OperatorTok{$}\NormalTok{Year, gapminderUS}\OperatorTok{$}\NormalTok{income, }\DataTypeTok{main =} \StringTok{"Income vs Year"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{EDA_Project_gapminder_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+
+\end{document}
