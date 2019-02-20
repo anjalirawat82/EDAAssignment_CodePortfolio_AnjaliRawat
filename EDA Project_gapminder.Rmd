@@ -1,0 +1,221 @@
+---
+title: "Exploratory Data Analysis Project- Gapminder Dataset"
+author: "Anjali Rawat"
+date: "February 18, 2019"
+output: html_document
+---
+
+## EDA Assignment Summary
+In this exploratory data analysis assignment I have used the Gapminder Dataset for analysis. After starting with a brief data inspection and exploratory plotting, I set up three specific questions, shown in section 1 below, for my analysis in this project. Thre reset of the presentation and anlysis of the project is as follows.
+
+I first present a systematic data description which includes description of each variables, total number of records and missing values etc. In Data exploration section I have first presented regionwise (subcontinents) discriptive statistics and visulization (boxplots, histograms, and density plots for different) of the different variables present in the data. The analysis results/interpretations are shown below.
+
+1) The analysis of the Life Expectancy vs Per Capita Income plot did not show any conclusive trend, however, plotting percapita income on log scale shows a nearly linear trend with life expectancy with quite a bit of spread. This is ecpected that increase in percapita income will increase life expectancy. 
+
+2) The life expectancy trends over the years show a very low and flat expectancy until early parts of the 20th century in all the continents (may be because of lack of health care) and then shown increasing treands in all continents. The increasing trends are set early in high percapita regions, like, US and Europe, and late in poorer regions like middle east/north africa and Asia pacific. There trends are obvious and are in line with the expectations.
+
+3) Similar analysis for United States shows a clearer tresnd for life expectancy whrere above certain level (~$8000) it increases sharply and the slows down beyond certain limit as income cann't control life beyond certain limit.Similarly, life expectancy in US started increasing very early (before 1900) and is showing a contineous increase over time probably due to improvement in health care, which is also strongly related to income as well.
+
+
+
+## 1. Questions
+
+Q1) Analyze trends in Life Expectancy (i.e. life) with Per Capita Income (i.e. Income) for the entire dataset.
+
+Q2) Analyse trends in Life Expectancy (i.e. life) over the years for different subcontinents (i.e. regions).
+
+Q3) Repeat Q1 and Q2 analysis for United Staes.
+
+## 2. Data description
+
+```{r}
+library(readr)
+gapminder <- read_csv("C:/Harrisburg University of Science and Technology/Anly 506-90- O-2018Late Fall - Exploratory Data Analytics/EDA Assignment +Code Portfolio/EDAAssignment_CodePortfolio_AnjaliRawat/gapminder.csv")
+```
+
+The gapminder dataset is a comma-separated value (.CSV) file with 41284 records.The data frame has six features/variables
+
+i)	Country (a categorical variable), a factor with 197 levels
+
+ii)	region (a categorical variable), a factor with 6 levels represent different subcontinental regions in the world
+
+iii)	Year (a categorical variable), a factor with 216 levels
+
+iv)	life (a continuous variable)- denote Life Expectancy
+
+v)	population(a discrete variable)
+
+vi)	income (a continuous variable)- represents Per Capita Income
+
+
+```{r}
+nrow(gapminder)
+ncol(gapminder)
+str(gapminder)
+head(gapminder)
+tail(gapminder)
+```
+
+## 3 Data exploration
+
+## 3.1 Exploratory regional data analysis
+
+## 3.1.1 Data summary statistics
+
+# a) Mean and Median of life expectancy Region wise
+
+```{r}
+aggregate(life ~ region, gapminder, median)
+aggregate(life ~ region, gapminder, mean)
+```
+
+# b) Five Num Summary Life Expectancy Region wise
+
+```{r}
+library(dplyr)
+SouthAsia=filter(gapminder, region=="South Asia")
+fivenum(SouthAsia$life)
+fivenum(SouthAsia$population)
+fivenum(SouthAsia$income)
+
+EastAsiaPacific = filter(gapminder,region=="East Asia & Pacific")
+fivenum(EastAsiaPacific$life)
+fivenum(EastAsiaPacific$population)
+fivenum(EastAsiaPacific$income)
+
+EuropeCentralAsia=filter(gapminder,region=="Europe & Central Asia")
+fivenum(EuropeCentralAsia$life)
+fivenum(EuropeCentralAsia$population)
+fivenum(EuropeCentralAsia$income)
+
+MiddleEastNorthAfrica = filter(gapminder,region=="Middle East & North Africa")
+fivenum(MiddleEastNorthAfrica$life)
+fivenum(MiddleEastNorthAfrica$population)
+fivenum(MiddleEastNorthAfrica$income)
+
+America =filter(gapminder,region=="America")
+fivenum(America$life)
+fivenum(America$population)
+fivenum(America$income)
+
+SubSaharanAfrica = filter(gapminder,region=="Sub-Saharan Africa")
+fivenum(SubSaharanAfrica$life)
+fivenum(SubSaharanAfrica$population)
+fivenum(SubSaharanAfrica$income)
+```
+
+## 3.1.2. Raw Data Visulization
+
+# a) Boxplots
+
+Life expectancy comparision in different region (subcontenets)
+```{r, echo=TRUE}
+library(ggplot2)
+ggplot(gapminder, aes(x = region, y = life)) +  geom_boxplot(outlier.colour = "red") +  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
+```
+
+Population comparision in different region (subcontenets)
+```{r, echo=TRUE}
+ggplot(gapminder, aes(x = region, y = population)) +  geom_boxplot(outlier.colour = "red") +  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
+```
+
+Income comparision in different region (subcontenets) 
+```{r, echo=TRUE}
+ggplot(gapminder, aes(x = region, y = income)) +  geom_boxplot(outlier.colour = "red") +  geom_jitter(position = position_jitter(width = 0.1, height = 0), alpha = 1/4)
+```
+
+# b) Histograms
+
+Life Expectancy by region
+```{r, echo=TRUE}
+library(ggplot2)
+par(mfrow=c(2,3))
+hist(America$life)
+hist(EastAsiaPacific$life)
+hist(EuropeCentralAsia$life)
+hist(MiddleEastNorthAfrica$life)
+hist(SouthAsia$life)
+hist(SubSaharanAfrica$life)
+```
+
+# c) Density plots
+
+Density Plot of life expectancy  by region
+```{r, echo=TRUE}
+ggplot(gapminder,aes(life))+geom_density(aes(color=region))
+```
+
+## 3.1.3. Analysis of Life Expectancy vs Per capita income for different subcontinents 
+
+```{r, echo=TRUE}
+plot(gapminder$income, gapminder$life, main = "Life Expectancy vs Per Capita Income" )
+```
+
+
+```{r, echo=TRUE}
+plot(log(gapminder$income), gapminder$life, main = "Life Expectancy vs log(Per Capita Income)")
+```
+
+## 3.1.4 Life expectancy trends over the years for different regions/subcontinents 
+```{r, echo=TRUE}
+par(mfrow=c(2,3))
+plot(SouthAsia$Year, SouthAsia$life, main = "SouthAsia")
+plot(EastAsiaPacific$Year, EastAsiaPacific$life, main = "Asia Pacific")
+plot(EuropeCentralAsia$Year, EuropeCentralAsia$life, main = "Europe and Central Asia")
+plot(MiddleEastNorthAfrica$Year, MiddleEastNorthAfrica$life, main = "Middle East and North Africa")
+plot(America$Year, America$life, main = "America")
+plot(SubSaharanAfrica$Year, SubSaharanAfrica$life, main = "SubSahara and Africa")
+```
+
+# 3.2 Exploratory data analysis for a single country (United States)
+```{r, echo=TRUE}
+gapminderUS=filter(gapminder,Country=="United States")
+```
+
+# Data summary and statistics 
+Five-number summaries for different variables for the US
+```{r, echo=TRUE}
+fivenum(gapminderUS$life)
+fivenum(gapminderUS$population)
+fivenum(gapminderUS$income)
+```
+
+# Raw data visulization
+
+# a) Boxplots for different variables for the US
+```{r, echo=TRUE}
+par(mfrow=c(1,3))
+boxplot(gapminderUS$life, main = "Life expectancy")
+boxplot(gapminderUS$population, main = "Population")
+boxplot(gapminderUS$income, main = "Income")
+```
+
+# b) Histograms for different variable for the US
+```{r, echo=TRUE}
+par(mfrow=c(1,3))
+hist(gapminderUS$life,col = "green")
+hist(gapminderUS$population,col = "blue")
+hist(gapminderUS$income,col="magenta")
+```
+
+# c) Density Plots for different variables for the US
+```{r, echo=TRUE}
+par(mfrow=c(1,2))
+plot(density(gapminderUS$life))
+plot(density(gapminderUS$income))     
+```
+
+## 3.2.3. Analysis of 'Life Expectancy' vs 'Per Capita Income' for the United States
+```{r, echo=TRUE}
+par(mfrow=c(1,2))
+plot(gapminderUS$income, gapminderUS$life, main = "Life expectancy vs Income")
+plot(log(gapminderUS$income), gapminderUS$life, main = "Life expectancy vs Income") 
+```
+
+## 3.2.3. Analysis of 'Life Expectancy', 'Population' and 'Per Capita Income' variation over the years for the United States
+```{r, echo=TRUE}
+par(mfrow=c(1,3))
+plot(gapminderUS$Year, gapminderUS$life, main = "Life expectancy vs Year")     
+plot(gapminderUS$Year, gapminderUS$population, main = "Population vs Year")     
+plot(gapminderUS$Year, gapminderUS$income, main = "Income vs Year")
+```
