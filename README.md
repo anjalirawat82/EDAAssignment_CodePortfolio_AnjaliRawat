@@ -1,21 +1,32 @@
 # EDAAssignment_CodePortfolio_AnjaliRawat
 Hi, this is Anjali Rawat. This repository is pary of my ANLY 506 class assignments. The repository essentially consists of two assignments
 1) R-code portfolio building from different class exercises 
-2) Exploratory Data Analysis Assignment for Bikedata (This part of the assignment will be submitted separately later) 
+2) Exploratory Data Analysis Assignment for gapminder 
 
-# Content Structure and discription
+# Content Structure and description
+
+
+  EDA_gapminder
+  
+  Report url: http://rpubs.com/publish/claim/469099/46c339183e8c444dbe1bd3bd93055540
+  
+         EDA Project_gapminder.Rmd: Contains"R markdowm" code
+    
+         EDA_Project_gapminder.html : Contains "html" file output from the R markdown code above
+    
+         Exploratory Data Analysis Project- Gapminder Dataset.pdf:Contains "pdf" file output from the R markdown code above
 
    Week12_Clustering/Code 
    
-          Clustering data.Rmd: Containes "R markdowm" code for various clustering from Chapter 12/Peng 2010
+          Clustering data.Rmd: Contains "R markdowm" code for various clustering from Chapter 12/Peng 2010
           
-          Clustering data.html: Containes "html" file output from the R markdown code above
+          Clustering data.html: Contains "html" file output from the R markdown code above
           
-          Week12_Data Clustering.pdf: Containes "pdf" file output from the R markdown code above
+          Week12_Data Clustering.pdf: Contains "pdf" file output from the R markdown code above
           
    Week5_DataImport/Code 
    
-          DataImport.R: Containes "R script" code for various data importing scripts from Chapter 11/YaRrr
+          DataImport.R: Contains "R script" code for various data importing scripts from Chapter 11/YaRrr
           
           
    Week6_DataStructreTrans_Rmarkdown/Code 
